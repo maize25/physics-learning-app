@@ -7,11 +7,14 @@ import { ThemeToggle } from './theme-toggle';
 import TextSizeToggle from '@/src/components/ui/TextSizeToggle';
 
 const navItems = [
+  { label: 'Modules', href: '/modules' },
   { label: 'Lessons', href: '/lessons' },
   { label: 'Mathematics', href: '/mathematics' },
   { label: 'Topic Map', href: '/topic-map' },
   { label: 'Tutor', href: '/tutor' },
   { label: 'Labs', href: '/simulations' },
+  { label: 'Cosmology Resources', href: '/cosmology-resources' },
+  { label: 'About', href: '/about' },
   { label: 'Flashcards', href: '/flashcards' },
   { label: 'Daily', href: '/daily-challenge' },
   { label: 'Tools', href: '/tools' },

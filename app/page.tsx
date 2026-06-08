@@ -26,22 +26,66 @@ export default function Home() {
         </div>
         <div className="relative z-10">
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-200">Physics Atlas</p>
-          <h1 className="mt-4 text-4xl font-bold sm:text-6xl">
-            <GradientText>Physics Atlas</GradientText>
+          <h1 className="mt-4 text-3xl font-semibold leading-tight sm:text-5xl">
+            “If you want to find the secrets of the universe, think in terms of energy, frequency and vibration.”
           </h1>
-          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-200 sm:text-xl">
-            Discover physics, astronomy, and mathematics with immersive lessons, simulations, and guided learning paths designed for curious minds.
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-200 sm:text-xl">
+            Explore a physics platform built to connect classical mechanics, relativity, quantum theory, and cosmology with AI-ready learning paths.
           </p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <a href="/lessons" className="inline-flex items-center justify-center rounded-full bg-white dark:bg-slate-900 px-6 py-4 text-lg font-semibold text-slate-950 dark:text-white shadow-xl transition hover:bg-slate-100 dark:hover:bg-slate-800">
-              Start Learning
+            <a href="/modules" className="inline-flex items-center justify-center rounded-full bg-white dark:bg-slate-900 px-6 py-4 text-lg font-semibold text-slate-950 dark:text-white shadow-xl transition hover:bg-slate-100 dark:hover:bg-slate-800">
+              View Modules
             </a>
-            <a href="/simulations" className="inline-flex items-center justify-center rounded-full border border-white/30 dark:border-white/20 bg-white/10 dark:bg-white/5 px-6 py-4 text-lg font-semibold text-white transition hover:bg-white/20 dark:hover:bg-white/10">
-              Explore Simulations
+            <a href="/cosmology-resources" className="inline-flex items-center justify-center rounded-full border border-white/30 dark:border-white/20 bg-white/10 dark:bg-white/5 px-6 py-4 text-lg font-semibold text-white transition hover:bg-white/20 dark:hover:bg-white/10">
+              Cosmology Resources
             </a>
           </div>
         </div>
       </section>
+
+      <div className="mt-10 rounded-[2rem] bg-slate-950 p-8 shadow-2xl">
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Course Modules</p>
+            <h2 className="mt-3 text-3xl font-bold text-white">A roadmap from orbits to naked singularities</h2>
+          </div>
+          <a href="/modules" className="inline-flex items-center justify-center rounded-full border border-cyan-500 bg-cyan-500/10 px-5 py-3 text-sm font-semibold text-cyan-200 transition hover:bg-cyan-500/20">
+            Open the Module Hub
+          </a>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-3xl border border-cyan-700 bg-slate-900 p-6">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Module 1</p>
+            <h3 className="mt-4 text-2xl font-semibold text-white">Classical Mechanics & Orbits</h3>
+            <p className="mt-3 text-slate-300">Newton’s gravitation, Kepler’s planetary motion, and an interactive orbit visualizer that shows mass changing orbital speed.</p>
+            <span className="mt-5 inline-flex rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-200">Live visualizer</span>
+          </div>
+          <div className="rounded-3xl border border-cyan-700 bg-slate-900 p-6">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Module 2</p>
+            <h3 className="mt-4 text-2xl font-semibold text-white">Relativistic Astrophysics</h3>
+            <p className="mt-3 text-slate-300">Spacetime curvature, Schwarzschild radius, and event horizons.</p>
+            <div className="mt-5 rounded-3xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-100">
+              Module Locked: Awaiting Machine Learning Integration.
+            </div>
+          </div>
+          <div className="rounded-3xl border border-cyan-700 bg-slate-900 p-6">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Module 3</p>
+            <h3 className="mt-4 text-2xl font-semibold text-white">Quantum & String Theory Frontier</h3>
+            <p className="mt-3 text-slate-300">Wave-particle duality, entanglement, and string dimensions.</p>
+            <div className="mt-5 rounded-3xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-100">
+              Under Construction - Theoretical Phase.
+            </div>
+          </div>
+          <div className="rounded-3xl border border-cyan-700 bg-slate-900 p-6">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Module 4</p>
+            <h3 className="mt-4 text-2xl font-semibold text-white">Computational Cosmology</h3>
+            <p className="mt-3 text-slate-300">JMN naked singularity model versus standard black holes and information escape.</p>
+            <div className="mt-5 rounded-3xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-100">
+              Module Locked: Awaiting Machine Learning Integration.
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card) => (
