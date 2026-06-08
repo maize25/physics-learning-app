@@ -80,7 +80,7 @@ export default function Navbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
           </Link>
           {navItems.map((item) => (
             <Link
-              key={item.href}
+              key={`${item.href}-${item.label}`}
               href={item.href}
               className="rounded-2xl px-4 py-3 text-white transition hover:bg-blue-600/50"
               onClick={() => setOpen(false)}
