@@ -34,18 +34,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: `
           try {
-            const theme = localStorage.getItem('theme') || 'dark';
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : (prefersDark ? 'dark' : 'light');
+            document.documentElement.classList.remove('light', 'dark');
             document.documentElement.classList.add(theme);
-          } catch(e) {}
+          } catch (e) {}
         `}} />
       </head>
-      <body className="relative z-10 min-h-screen flex flex-col bg-space-dark text-slate-200 transition-colors duration-300" suppressHydrationWarning>
+      <body className="relative z-10 min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300" suppressHydrationWarning>
         <StarBackground />
         <Providers>
           <ClientLoadingScreen />

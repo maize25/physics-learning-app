@@ -5,25 +5,29 @@ export default function AboutPage() {
     <PageTransition>
       <div className="container mx-auto p-8">
         <div className="mb-8 rounded-[2rem] border border-blue-700 bg-slate-950 p-8 shadow-2xl">
-          <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">About the Developer</p>
-          <h1 className="mt-4 text-4xl font-bold text-white">Project Roadmap & Interview Focus</h1>
+          <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">About the Project</p>
+          <h1 className="mt-4 text-4xl font-bold text-white">Roadmap & Research Direction</h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-300">
-            This platform is currently running on standard web frameworks (JavaScript/Python backend). The Phase 2 roadmap includes migrating to compiled languages and utilizing deep learning algorithms to process raw astrophysical datasets, aiming to assist in live cosmological research.
+            This app showcases physics and cosmology through interactive lessons, simulations, and computational models. The development roadmap is designed for a transition from polished learning experiences to research-capable cosmology tools.
           </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-lg">
-            <h2 className="text-2xl font-semibold text-white">Why this project</h2>
-            <p className="mt-4 text-slate-300">
-              The app is designed as a research-minded education tool that bridges physics fundamentals with future lab workflows. It highlights the transition from classical mechanics to modern cosmology while signalling a move toward AI-driven scientific computation.
-            </p>
+          <div className="rounded-3xl border border-slate-700 bg-slate-900 p-8 shadow-lg">
+            <h2 className="text-2xl font-semibold text-white">Current Focus</h2>
+            <ul className="mt-4 space-y-3 text-slate-300">
+              <li>• Build reliable interactive modules for mechanics, relativity, and singularity theory.</li>
+              <li>• Develop a polished UI for course progression, research references, and learning analytics.</li>
+              <li>• Add a reading list with cosmology resources and a live reference to ICSC research.</li>
+            </ul>
           </div>
-          <div className="rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-lg">
-            <h2 className="text-2xl font-semibold text-white">Phase 2 ambitions</h2>
-            <p className="mt-4 text-slate-300">
-              Next steps include compiled-language performance improvements, machine learning models for astrophysical simulation, and live dataset processing to support research-grade cosmology visualizations and predictive analysis.
-            </p>
+          <div className="rounded-3xl border border-slate-700 bg-slate-900 p-8 shadow-lg">
+            <h2 className="text-2xl font-semibold text-white">Future Roadmap</h2>
+            <ul className="mt-4 space-y-3 text-slate-300">
+              <li>• Phase 2: migrate computational back end to compiled languages for high-performance astrophysical simulation.</li>
+              <li>• Phase 3: add machine learning pipelines for raw cosmological dataset analysis and prediction.</li>
+              <li>• Phase 4: create interactive research learning pathways to help more students discover, imagine, and master physics.</li>
+            </ul>
           </div>
         </div>
       </div>
