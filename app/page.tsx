@@ -1,12 +1,14 @@
 'use client';
 
+import GravityCanvas from '../src/components/GravityCanvas';
+import LiveTelemetry from '../src/components/LiveTelemetry';
 import CosmologyReadingList from '../src/components/CosmologyReadingList';
 import PageTransition from '../src/components/effects/PageTransition';
 
 const cards = [
   { title: 'Lessons', description: 'Interactive physics and astronomy lessons.', href: '/lessons', icon: '📘', color: 'from-violet-500 to-fuchsia-500' },
-  { title: 'Simulations', description: 'Run animated physics labs and solar system models.', href: '/simulations', icon: '🪐', color: 'from-sky-500 to-cyan-500' },
-  { title: 'Tutor', description: 'Ask an AI mentor for physics support.', href: '/tutor', icon: '💬', color: 'from-emerald-500 to-lime-500' },
+  { title: 'Computational Labs', description: 'Run animated physics labs and solar system models.', href: '/simulations', icon: '🪐', color: 'from-sky-500 to-cyan-500' },
+  { title: 'Research AI Agent', description: 'Ask an AI mentor for physics support.', href: '/tutor', icon: '💬', color: 'from-emerald-500 to-lime-500' },
   { title: 'Glossary', description: 'Explore essential physics terms and examples.', href: '/glossary', icon: '📚', color: 'from-orange-500 to-amber-500' },
   { title: 'Timeline', description: 'Major physics discoveries from the modern era.', href: '/timeline', icon: '🕰️', color: 'from-yellow-500 to-orange-400' },
   { title: 'Search', description: 'Find lessons, quotes, books, and glossary entries instantly.', href: '/search', icon: '🔍', color: 'from-cyan-500 to-sky-500' },
@@ -35,6 +37,9 @@ export default function Home() {
           <div className="mt-10 rounded-[2rem] border border-cyan-500/20 bg-slate-900/80 p-8 shadow-inner backdrop-blur-xl">
             <p className="text-xl italic text-slate-100">“The most incomprehensible thing about the universe is that it is comprehensible.”</p>
             <p className="mt-4 text-sm uppercase tracking-[0.35em] text-cyan-300">– Albert Einstein</p>
+          </div>
+          <div className="mt-6">
+            <GravityCanvas />
           </div>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
             <a href="/modules" className="inline-flex items-center justify-center rounded-full bg-cyan-500 px-6 py-4 text-lg font-semibold text-slate-950 shadow-xl transition hover:bg-cyan-400">
@@ -112,6 +117,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <LiveTelemetry />
 
       <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card) => (
