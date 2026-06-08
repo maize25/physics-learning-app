@@ -11,7 +11,6 @@ const navItems = [
   { label: 'Lessons', href: '/lessons' },
   { label: 'Mathematics', href: '/mathematics' },
   { label: 'Topic Map', href: '/topic-map' },
-  { label: 'Tutor', href: '/tutor' },
   { label: 'Research AI Agent', href: '/tutor' },
   { label: 'Computational Labs', href: '/simulations' },
   { label: 'Cosmology Resources', href: '/cosmology-resources' },
@@ -40,7 +39,7 @@ export default function Navbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
               Home
             </Link>
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="text-white hover:text-cyan-200 transition font-medium text-sm">
+              <Link key={`${item.href}-${item.label}`} href={item.href} className="text-white hover:text-cyan-200 transition font-medium text-sm">
                 {item.label}
               </Link>
             ))}
