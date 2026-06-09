@@ -137,6 +137,107 @@ export default function Home() {
           </a>
         ))}
       </div>
+
+      <section className="mt-12 mb-8">
+        <div className="mb-6">
+          <p className="text-cyan-400 text-sm uppercase tracking-widest font-medium">Study Resources</p>
+          <h2 className="text-3xl font-bold text-white mt-1">Course Reference Library</h2>
+          <p className="text-gray-400 mt-2">
+            Structured learning paths with lessons, readings and exercises for each topic
+          </p>
+        </div>
+
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+          {[
+            {
+              title: 'Classical Mechanics',
+              icon: '⚙️',
+              color: 'from-blue-600 to-blue-800',
+              hoverClass: 'group-hover:border-blue-500/70',
+              topics: ["Newton's Laws", 'Kinematics', 'Energy & Work', 'Momentum', 'Circular Motion', 'Gravitation'],
+              lessons: 6,
+              exercises: 24,
+              href: '/lessons',
+            },
+            {
+              title: 'Waves & Optics',
+              icon: '〰️',
+              color: 'from-cyan-600 to-cyan-800',
+              hoverClass: 'group-hover:border-cyan-500/70',
+              topics: ['Wave Properties', 'Sound & Doppler', 'Light & Reflection', 'Refraction', 'Wave Interference', 'Polarization'],
+              lessons: 6,
+              exercises: 18,
+              href: '/lessons',
+            },
+            {
+              title: 'Electricity & Magnetism',
+              icon: '⚡',
+              color: 'from-purple-600 to-purple-800',
+              hoverClass: 'group-hover:border-purple-500/70',
+              topics: ['Electric Charge', 'Electric Fields', 'Circuits & Ohm\'s Law', 'Capacitors', 'Magnetic Fields', 'Electromagnetic Induction'],
+              lessons: 6,
+              exercises: 20,
+              href: '/lessons',
+            },
+            {
+              title: 'Modern Physics',
+              icon: '⚛️',
+              color: 'from-pink-600 to-pink-800',
+              hoverClass: 'group-hover:border-pink-500/70',
+              topics: ['Special Relativity', 'Quantum Mechanics', 'Photoelectric Effect', 'Nuclear Physics', 'Particle Physics', 'Cosmology'],
+              lessons: 6,
+              exercises: 16,
+              href: '/lessons',
+            },
+            {
+              title: 'Mathematics',
+              icon: '∑',
+              color: 'from-green-600 to-green-800',
+              hoverClass: 'group-hover:border-emerald-500/70',
+              topics: ['Limits & Calculus', 'Differentiation', 'Integration', 'Differential Equations', 'Linear Algebra', 'Statistics'],
+              lessons: 8,
+              exercises: 32,
+              href: '/mathematics',
+            },
+            {
+              title: 'Computational Physics',
+              icon: '💻',
+              color: 'from-orange-600 to-orange-800',
+              hoverClass: 'group-hover:border-orange-500/70',
+              topics: ['Python for Physics', 'Simulations', 'Data Analysis', 'Numerical Methods', 'Visualization', 'Machine Learning'],
+              lessons: 4,
+              exercises: 12,
+              href: '/simulations',
+            },
+          ].map((section) => (
+            <a
+              key={section.title}
+              href={section.href}
+              className={`group rounded-2xl border border-gray-700 bg-gray-900 p-6 transition hover:-translate-y-1 hover:shadow-2xl ${section.hoverClass}`}
+            >
+              <div className={`mb-4 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br ${section.color}`}>
+                <span className="text-2xl">{section.icon}</span>
+              </div>
+              <h3 className="text-2xl font-semibold text-white">{section.title}</h3>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {section.topics.map((topic) => (
+                  <span key={topic} className="rounded-full bg-gray-800 px-2 py-1 text-xs font-medium text-gray-300">
+                    {topic}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-6 flex items-center justify-between text-gray-400 text-sm">
+                <span>{section.lessons} lessons</span>
+                <span>{section.exercises} exercises</span>
+              </div>
+              <div className="mt-4 flex items-center justify-between text-cyan-300 text-sm font-semibold">
+                <span>Start learning</span>
+                <span>→</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
       </div>
     </PageTransition>
   );

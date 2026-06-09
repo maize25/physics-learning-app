@@ -25,6 +25,30 @@ const resources = [
     description: 'Exploring the transition from general relativity to string theory and multidimensional physics.',
     url: 'https://www.google.com/search?q=The+Elegant+Universe+Brian+Greene',
   },
+  {
+    title: 'The Road to Reality',
+    author: 'Roger Penrose',
+    description: 'A comprehensive guide to the mathematical laws that govern the universe, from quantum mechanics to cosmology.',
+    url: 'https://www.google.com/search?q=The+Road+to+Reality+Roger+Penrose',
+  },
+  {
+    title: 'Black Holes and Time Warps',
+    author: 'Kip Thorne',
+    description: 'Einstein’s outrageous legacy — exploring black holes, wormholes and the warping of space and time.',
+    url: 'https://www.google.com/search?q=Black+Holes+and+Time+Warps+Kip+Thorne',
+  },
+  {
+    title: 'Seven Brief Lessons on Physics',
+    author: 'Carlo Rovelli',
+    description: 'A poetic introduction to modern physics covering relativity, quantum mechanics and the nature of space and time.',
+    url: 'https://www.google.com/search?q=Seven+Brief+Lessons+on+Physics+Carlo+Rovelli',
+  },
+  {
+    title: 'Hyperspace',
+    author: 'Michio Kaku',
+    description: 'A scientific odyssey through parallel universes, time warps and the 10th dimension using superstring theory.',
+    url: 'https://www.google.com/search?q=Hyperspace+Michio+Kaku',
+  },
 ]
 
 export default function CosmologyReadingList() {
