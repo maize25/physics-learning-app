@@ -92,7 +92,7 @@ export default function Home() {
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Current Status & Future Goals</p>
-            <h2 className="mt-3 text-3xl font-bold text-white">Research direction built for interview review</h2>
+            <h2 className="mt-3 text-3xl font-bold text-white">An open source physics learning platform built by a self-taught developer</h2>
           </div>
           <a href="/about" className="inline-flex items-center justify-center rounded-full border border-cyan-500 bg-cyan-500/10 px-5 py-3 text-sm font-semibold text-cyan-200 transition hover:bg-cyan-500/20">
             Full roadmap page
@@ -100,19 +100,21 @@ export default function Home() {
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
-            <h3 className="text-xl font-semibold text-white">Current status</h3>
+            <h3 className="text-xl font-semibold text-white">Current Status</h3>
             <ul className="mt-4 space-y-3 text-slate-300">
-              <li>• Interactive modules for mechanics, orbital dynamics, and relativistic astrophysics.</li>
-              <li>• JMN naked singularity model included as the core comparative research concept.</li>
-              <li>• Embedded reading list, quote-driven narrative, and polished academic UI.</li>
+              <li>• Interactive lessons covering mechanics, waves, thermodynamics and modern physics</li>
+              <li>• Mathematical tools and formula references</li>
+              <li>• Quiz system with progress tracking</li>
+              <li>• Computational physics visualizations in development</li>
             </ul>
           </div>
           <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
-            <h3 className="text-xl font-semibold text-white">Future goals</h3>
+            <h3 className="text-xl font-semibold text-white">Future Goals</h3>
             <ul className="mt-4 space-y-3 text-slate-300">
-              <li>• Migrate compute workflows toward compiled numerical back ends for research-grade performance.</li>
-              <li>• Add machine learning analysis to process cosmological datasets and live observatory results.</li>
-              <li>• Grow the platform into an interview-ready portfolio for physics research and academic presentation.</li>
+              <li>• Build real-time physics simulations using WebGL for better performance</li>
+              <li>• Add machine learning tools to analyze physics datasets</li>
+              <li>• Expand content to university level with deeper theoretical coverage</li>
+              <li>• Open source the project for other students</li>
             </ul>
           </div>
         </div>

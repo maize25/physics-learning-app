@@ -4,7 +4,7 @@ import Link from 'next/link'
 const resources = [
   {
     title: 'The Story of Collapsing Stars',
-    author: 'Pankaj S. Joshi',
+    author: 'Gravitational Physics Research',
     description: 'The foundational text for understanding gravitational collapse and the mathematical possibility of naked singularities beyond the standard event horizon model.',
     url: 'https://www.google.com/search?q=The+Story+of+Collapsing+Stars+Pankaj+S.+Joshi',
   },
@@ -36,14 +36,6 @@ export default function CosmologyReadingList() {
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Cosmology Reading List</p>
           <h2 className="mt-3 text-3xl font-bold text-white">Research & Resources</h2>
         </div>
-        <a
-          href="https://ahduni.edu.in/academics/schools-centres/international-centre-for-space-and-cosmology/"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/20"
-        >
-          ICSC Reference
-        </a>
       </div>
       <div className="grid gap-6 lg:grid-cols-2">
         {resources.map((resource) => (
