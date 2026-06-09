@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import GradientText from '../../src/components/ui/GradientText';
 import PageTransition from '../../src/components/effects/PageTransition';
-import { lessons } from '../../data/lessons';
+import { Lesson, lessons } from '@/data/lessons';
 import { calcReadTime } from '@/src/utils/readTime';
 
 export default function Lessons() {
@@ -17,7 +17,7 @@ export default function Lessons() {
         Comprehensive lessons on astronomy, astrophysics, and physics. Read detailed explanations and test your knowledge with quizzes.
       </p>
       <div className="grid gap-6 md:grid-cols-2">
-        {lessons.map((lesson) => (
+        {lessons.map((lesson: Lesson) => (
           <div
             key={lesson.slug}
             className="rounded-3xl border border-gray-700 bg-gray-900 p-6 shadow-xl transition glow-card hover:-translate-y-1 hover:shadow-2xl"
@@ -32,7 +32,7 @@ export default function Lessons() {
               <div>
                 <h3 className="font-semibold text-blue-400">What You’ll Learn</h3>
                 <ul className="list-disc list-inside text-gray-300 text-sm">
-                  {lesson.examples.map((example, exampleIndex) => (
+                  {lesson.examples?.map((example: string, exampleIndex: number) => (
                     <li key={exampleIndex}>{example}</li>
                   ))}
                 </ul>
@@ -44,12 +44,16 @@ export default function Lessons() {
                 >
                   📚 Learn More
                 </Link>
-                <Link
-                  href={lesson.quizLink}
-                  className="inline-flex rounded-full bg-green-600 px-4 py-2 text-white hover:bg-green-700 text-sm"
-                >
-                  ✓ Take Quiz
-                </Link>
+                {lesson.quizLink ? (
+                  <Link
+                    href={lesson.quizLink}
+                    className="inline-flex rounded-full bg-green-600 px-4 py-2 text-white hover:bg-green-700 text-sm"
+                  >
+                    ✓ Take Quiz
+                  </Link>
+                ) : (
+                  <span className="inline-flex rounded-full bg-green-800/30 px-4 py-2 text-green-200 text-sm">✓ Take Quiz</span>
+                )}
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@ export default function AboutPage() {
             <ul className="mt-4 space-y-3 text-slate-300">
               <li>• Build reliable interactive modules for mechanics, relativity, and singularity theory.</li>
               <li>• Develop a polished UI for course progression, research references, and learning analytics.</li>
-              <li>• Add a reading list with cosmology resources and a live reference to ICSC research.</li>
+              <li>• Add a reading list with cosmology resources.</li>
             </ul>
           </div>
           <div className="rounded-3xl border border-slate-700 bg-slate-900 p-8 shadow-lg">

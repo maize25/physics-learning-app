@@ -3,8 +3,9 @@ import PageTransition from '@/src/components/effects/PageTransition';
 const books = [
   {
     title: 'The Story of Collapsing Stars',
-    author: 'Pankaj S. Joshi',
-    description: 'The foundational text for understanding gravitational collapse and the mathematical possibility of naked singularities beyond the standard event horizon model.',
+    author: 'Gravitational Physics',
+    description:
+      'A deep exploration of gravitational collapse, black hole formation, and the mathematical framework behind naked singularities.',
   },
   {
     title: 'A Brief History of Time',
@@ -26,7 +27,7 @@ export default function CosmologyResourcesPage() {
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Cosmology Resources</p>
           <h1 className="mt-4 text-4xl font-bold text-white">Recommended Reading for Modern Cosmology</h1>
           <p className="mt-4 text-lg leading-relaxed text-slate-300">
-            These books are selected to support advanced study in gravitational collapse, black holes, and string-inspired physics. They are ideal references for a research-oriented honours project.
+            Recommended books for studying modern physics, cosmology and astrophysics
           </p>
         </div>
 

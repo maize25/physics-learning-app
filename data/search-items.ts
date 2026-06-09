@@ -19,7 +19,7 @@ const lessonItems: SearchItem[] = lessons.map((lesson) => ({
 }));
 
 const bookItems: SearchItem[] = lessons.flatMap((lesson) =>
-  lesson.books.map((book, index) => ({
+  (lesson.books ?? []).map((book, index) => ({
     id: `book-${lesson.slug}-${index}`,
     type: 'book',
     title: book.title,

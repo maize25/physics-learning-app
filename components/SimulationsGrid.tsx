@@ -1,335 +1,472 @@
-'use client'
+"use client"
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react'
 
-const experiments = [
-  {
-    id: 'solar-system',
-    title: 'Solar System',
-    description: 'Explore the planets of our solar system and watch them orbit the Sun.',
-  },
-  {
-    id: 'orbit',
-    title: 'Orbital Motion',
-    description: 'Visualize a planet orbiting a star under gravity.',
-  },
-  {
-    id: 'pendulum',
-    title: 'Pendulum Swing',
-    description: 'See how a pendulum oscillates with a restoring force.',
-  },
-  {
-    id: 'projectile',
-    title: 'Projectile Path',
-    description: 'Observe a projectile trajectory with gravity acting downward.',
-  },
-  {
-    id: 'wave',
-    title: 'Wave Interference',
-    description: 'Explore the overlap of two waves and interference patterns.',
-  },
-  {
-    id: 'circuit',
-    title: 'AC Oscillator',
-    description: 'Watch a simple alternating current waveform change over time.',
-  },
-  {
-    id: 'ray',
-    title: 'Light Ray',
-    description: 'Trace a light ray through lenses and mirrors.',
-  },
-];
-
-function useAnimatedCanvas(draw: (ctx: CanvasRenderingContext2D, frame: number, width: number, height: number) => void) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
+function useRAF(draw: (ctx: CanvasRenderingContext2D, w: number, h: number, t: number) => void) {
+  const ref = useRef<HTMLCanvasElement | null>(null)
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const canvas = ref.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
-    let animationFrame = 0;
-    let frame = 0;
-    const render = () => {
-      const { width, height } = canvas;
-      ctx.clearRect(0, 0, width, height);
-      draw(ctx, frame, width, height);
-      frame += 1;
-      animationFrame = requestAnimationFrame(render);
-    };
-    render();
-    return () => cancelAnimationFrame(animationFrame);
-  }, [draw]);
+    let mounted = true
+    let raf = 0
 
-  return canvasRef;
-}
-
-function OrbitCard() {
-  const canvasRef = useAnimatedCanvas((ctx, frame, width, height) => {
-    const cx = width / 2;
-    const cy = height / 2;
-    const radius = Math.min(width, height) * 0.28;
-    const angle = frame * 0.01;
-    const x = cx + radius * Math.cos(angle);
-    const y = cy + radius * Math.sin(angle);
-
-    ctx.fillStyle = '#facc15';
-    ctx.beginPath();
-    ctx.arc(cx, cy, 16, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = '#38bdf8';
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.strokeStyle = '#ffffff66';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-    ctx.stroke();
-  });
-
-  return <canvas ref={canvasRef} className="h-48 w-full rounded-3xl bg-slate-950" width={320} height={220} />;
-}
-
-function PendulumCard() {
-  const canvasRef = useAnimatedCanvas((ctx, frame, width, height) => {
-    const cx = width / 2;
-    const top = 32;
-    const length = height * 0.55;
-    const angle = Math.sin(frame * 0.02) * 0.85;
-    const x = cx + length * Math.sin(angle);
-    const y = top + length * Math.cos(angle);
-
-    ctx.strokeStyle = '#38bdf8';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(cx, top);
-    ctx.lineTo(x, y);
-    ctx.stroke();
-
-    ctx.fillStyle = '#f472b6';
-    ctx.beginPath();
-    ctx.arc(x, y, 12, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = '#ffffffcc';
-    ctx.font = '14px serif';
-    ctx.fillText('pivot', cx - 28, top - 10);
-  });
-
-  return <canvas ref={canvasRef} className="h-48 w-full rounded-3xl bg-slate-950" width={320} height={220} />;
-}
-
-function ProjectileCard() {
-  const canvasRef = useAnimatedCanvas((ctx, frame, width, height) => {
-    const t = (frame % 200) / 200;
-    const x = 40 + t * (width - 80);
-    const y = 40 + (1 - (4 * (t - 0.5) ** 2)) * (height - 100);
-
-    ctx.fillStyle = '#ffffff66';
-    ctx.fillRect(0, height - 28, width, 2);
-    ctx.fillStyle = '#22c55e';
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  return <canvas ref={canvasRef} className="h-48 w-full rounded-3xl bg-slate-950" width={320} height={220} />;
-}
-
-function WaveCard() {
-  const canvasRef = useAnimatedCanvas((ctx, frame, width, height) => {
-    ctx.strokeStyle = '#60a5fa';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    for (let i = 0; i < width; i += 1) {
-      const y = height / 2 + Math.sin((i / width) * Math.PI * 3 + frame * 0.08) * 18;
-      if (i === 0) ctx.moveTo(i, y);
-      else ctx.lineTo(i, y);
+    const resize = () => {
+      const ratio = devicePixelRatio || 1
+      canvas.width = Math.floor(canvas.clientWidth * ratio)
+      canvas.height = Math.floor(canvas.clientHeight * ratio)
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
     }
-    ctx.stroke();
+    resize()
+    window.addEventListener('resize', resize)
 
-    ctx.strokeStyle = '#f472b6';
-    ctx.beginPath();
-    for (let i = 0; i < width; i += 1) {
-      const y = height / 2 + Math.sin((i / width) * Math.PI * 4 + frame * 0.1) * 12;
-      if (i === 0) ctx.moveTo(i, y);
-      else ctx.lineTo(i, y);
+    const loop = (t: number) => {
+      if (!mounted) return
+      const w = canvas.width
+      const h = canvas.height
+      ctx.clearRect(0, 0, w, h)
+      draw(ctx, w / (devicePixelRatio || 1), h / (devicePixelRatio || 1), t / 1000)
+      raf = requestAnimationFrame(loop)
     }
-    ctx.stroke();
-  });
-
-  return <canvas ref={canvasRef} className="h-48 w-full rounded-3xl bg-slate-950" width={320} height={220} />;
+    raf = requestAnimationFrame(loop)
+    return () => {
+      mounted = false
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', resize)
+    }
+  }, [draw])
+  return ref
 }
 
-function CircuitCard() {
-  const canvasRef = useAnimatedCanvas((ctx, frame, width, height) => {
-    const t = Math.sin(frame * 0.08);
-    const x1 = width * 0.2;
-    const x2 = width * 0.8;
-    const y = height / 2;
+function SolarSystemSim() {
+  const [speed, setSpeed] = useState(1)
+  const [selected, setSelected] = useState<string | null>(null)
 
-    ctx.strokeStyle = '#facc15';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(x1, y);
-    ctx.lineTo(width * 0.4, y);
-    ctx.lineTo(width * 0.4, y - 40);
-    ctx.lineTo(width * 0.6, y + 40);
-    ctx.lineTo(width * 0.6, y);
-    ctx.lineTo(x2, y);
-    ctx.stroke();
+  const draw = (ctx: CanvasRenderingContext2D, w: number, h: number, t: number) => {
+    ctx.fillStyle = '#071025'
+    ctx.fillRect(0, 0, w, h)
 
-    ctx.fillStyle = '#22c55e';
-    ctx.beginPath();
-    ctx.arc(x2 + 18, y - 16, 10, 0, Math.PI * 2);
-    ctx.fill();
+    const cx = w / 2
+    const cy = h / 2
 
-    ctx.strokeStyle = '#f472b6';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(width * 0.45, y - 10);
-    ctx.lineTo(width * 0.5, y + t * 20);
-    ctx.lineTo(width * 0.55, y - 10);
-    ctx.stroke();
-  });
+    // Sun
+    ctx.fillStyle = '#ffcc33'
+    ctx.beginPath()
+    ctx.arc(cx, cy, 18, 0, Math.PI * 2)
+    ctx.fill()
 
-  return <canvas ref={canvasRef} className="h-48 w-full rounded-3xl bg-slate-950" width={320} height={220} />;
-}
-
-function RayCard() {
-  const canvasRef = useAnimatedCanvas((ctx, frame, width, height) => {
-    const offset = Math.sin(frame * 0.05) * 16;
-    ctx.fillStyle = '#2563eb';
-    ctx.fillRect(width * 0.35, height * 0.2, width * 0.08, height * 0.6);
-    ctx.strokeStyle = '#fbbf24';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(20, height * 0.75);
-    ctx.lineTo(width * 0.35, height * 0.45);
-    ctx.lineTo(width - 20, height * 0.45 + offset);
-    ctx.stroke();
-  });
-
-  return <canvas ref={canvasRef} className="h-48 w-full rounded-3xl bg-slate-950" width={320} height={220} />;
-}
-
-function SolarSystemCard() {
-  const canvasRef = useAnimatedCanvas((ctx, frame, width, height) => {
-    const centerX = width / 2;
-    const centerY = height / 2;
-    const sunRadius = 18;
     const planets = [
-      { name: 'Mercury', radius: 4, orbit: 50, speed: 0.035, color: '#c3c3c3' },
-      { name: 'Venus', radius: 6, orbit: 72, speed: 0.025, color: '#e4c17b' },
-      { name: 'Earth', radius: 7, orbit: 98, speed: 0.02, color: '#6495ed' },
-      { name: 'Mars', radius: 5, orbit: 120, speed: 0.017, color: '#d96c42' },
-      { name: 'Jupiter', radius: 10, orbit: 150, speed: 0.012, color: '#d4a15d' },
-      { name: 'Saturn', radius: 9, orbit: 180, speed: 0.009, color: '#d8c07b' },
-      { name: 'Uranus', radius: 8, orbit: 210, speed: 0.006, color: '#7fd1e0' },
-      { name: 'Neptune', radius: 8, orbit: 240, speed: 0.005, color: '#4d6dfc' },
-    ];
+      { name: 'Mercury', r: 4, orbit: 40, speed: 4.8, color: '#c3c3c3', mass: 0.33, dist: 57.9 },
+      { name: 'Venus', r: 6, orbit: 60, speed: 3.5, color: '#e4c17b', mass: 4.87, dist: 108.2 },
+      { name: 'Earth', r: 7, orbit: 82, speed: 3.0, color: '#5fb3ff', mass: 5.97, dist: 149.6 },
+      { name: 'Mars', r: 5, orbit: 102, speed: 2.4, color: '#d96c42', mass: 0.642, dist: 227.9 },
+    ]
 
-    ctx.fillStyle = '#facc15';
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, sunRadius, 0, Math.PI * 2);
-    ctx.fill();
+    planets.forEach((p, i) => {
+      const ang = t * 0.5 * speed * (p.speed / 3) + i
+      const x = cx + Math.cos(ang) * p.orbit
+      const y = cy + Math.sin(ang) * p.orbit
 
-    planets.forEach((planet, index) => {
-      const angle = frame * planet.speed + index * 0.8;
-      const x = centerX + Math.cos(angle) * planet.orbit;
-      const y = centerY + Math.sin(angle) * planet.orbit;
+      // orbit path
+      ctx.strokeStyle = 'rgba(255,255,255,0.04)'
+      ctx.beginPath()
+      ctx.arc(cx, cy, p.orbit, 0, Math.PI * 2)
+      ctx.stroke()
 
-      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, planet.orbit, 0, Math.PI * 2);
-      ctx.stroke();
+      // planet
+      ctx.fillStyle = p.color
+      ctx.beginPath()
+      ctx.arc(x, y, p.r, 0, Math.PI * 2)
+      ctx.fill()
 
-      ctx.fillStyle = planet.color;
-      ctx.beginPath();
-      ctx.arc(x, y, planet.radius, 0, Math.PI * 2);
-      ctx.fill();
+      // label always visible
+      ctx.fillStyle = '#e6eef6'
+      ctx.font = '12px system-ui'
+      ctx.fillText(p.name, x + p.r + 6, y + 4)
 
-      ctx.fillStyle = '#f8fafc';
-      ctx.font = '10px system-ui';
-      ctx.fillText(planet.name, x + planet.radius + 4, y + 4);
-    });
-  });
+      // clicked highlight
+      if (selected === p.name) {
+        ctx.strokeStyle = 'rgba(96,165,250,0.9)'
+        ctx.lineWidth = 2
+        ctx.beginPath()
+        ctx.arc(x, y, p.r + 6, 0, Math.PI * 2)
+        ctx.stroke()
+      }
+    })
+  }
 
-  return <canvas ref={canvasRef} className="h-56 w-full rounded-3xl bg-slate-950" width={480} height={280} />;
-}
+  const ref = useRAF(draw)
 
-const renderer = {
-  'solar-system': SolarSystemCard,
-  orbit: OrbitCard,
-  pendulum: PendulumCard,
-  projectile: ProjectileCard,
-  wave: WaveCard,
-  circuit: CircuitCard,
-  ray: RayCard,
-};
-
-export default function SimulationsGrid() {
-  const [activeId, setActiveId] = useState('orbit');
+  // click handling
+  useEffect(() => {
+    const canvas = ref.current
+    if (!canvas) return
+    const onClick = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect()
+      const x = (e.clientX - rect.left) * (devicePixelRatio || 1)
+      const y = (e.clientY - rect.top) * (devicePixelRatio || 1)
+      const w = canvas.width / (devicePixelRatio || 1)
+      const h = canvas.height / (devicePixelRatio || 1)
+      const cx = w / 2
+      const cy = h / 2
+      const planets = [
+        { name: 'Mercury', r: 4, orbit: 40 },
+        { name: 'Venus', r: 6, orbit: 60 },
+        { name: 'Earth', r: 7, orbit: 82 },
+        { name: 'Mars', r: 5, orbit: 102 },
+      ]
+      for (let i = 0; i < planets.length; i++) {
+        const p = planets[i]
+        const ang = performance.now() / 1000 * 0.5 * speed * ( ( [4.8,3.5,3.0,2.4][i] ) / 3 ) + i
+        const px = cx + Math.cos(ang) * p.orbit
+        const py = cy + Math.sin(ang) * p.orbit
+        const dx = x - px
+        const dy = y - py
+        if (Math.sqrt(dx * dx + dy * dy) < p.r + 6) {
+          setSelected(p.name)
+          return
+        }
+      }
+      setSelected(null)
+    }
+    canvas.addEventListener('click', onClick)
+    return () => canvas.removeEventListener('click', onClick)
+  }, [ref, speed])
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-950">
+    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4">
+      <h3 className="text-white font-semibold">Solar System</h3>
+      <p className="text-slate-300 text-sm">Planets orbit the Sun. Click a planet for details.</p>
+      <div className="mt-3 h-52 w-full">
+        <canvas ref={ref} className="w-full h-full rounded-xl" />
+      </div>
+      <div className="mt-3 flex items-center gap-3">
+        <label className="text-slate-300 text-sm">Speed</label>
+        <input className="w-full" type="range" min="0.2" max="3" step="0.1" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} />
+      </div>
+      {selected && (
+        <div className="mt-3 rounded-lg bg-slate-800 p-2 text-sm text-slate-200">
+          <strong>{selected}</strong> — mass and distance (approx.) shown here.
+        </div>
+      )}
+    </div>
+  )
+}
+
+function OrbitSim() {
+  const [ecc, setEcc] = useState(0.4)
+  const [showVec, setShowVec] = useState(true)
+
+  const draw = (ctx: CanvasRenderingContext2D, w: number, h: number, t: number) => {
+    ctx.fillStyle = '#071025'
+    ctx.fillRect(0, 0, w, h)
+
+    const cx = w / 2
+    const cy = h / 2
+    // ellipse parameters
+    const a = Math.min(w, h) * 0.28
+    const b = a * Math.sqrt(1 - ecc * ecc)
+    const focalDist = a * ecc
+
+    // draw ellipse
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)'
+    ctx.beginPath()
+    for (let i = 0; i <= 360; i++) {
+      const rad = (i * Math.PI) / 180
+      const x = cx + a * Math.cos(rad)
+      const y = cy + b * Math.sin(rad)
+      if (i === 0) ctx.moveTo(x, y)
+      else ctx.lineTo(x, y)
+    }
+    ctx.closePath()
+    ctx.stroke()
+
+    // true anomaly with non-uniform speed (approximate)
+    const period = 10
+    const mean = ((t % period) / period) * 2 * Math.PI
+    // solve ecc anomaly via simple iteration (approx)
+    let E = mean
+    for (let i = 0; i < 6; i++) E = mean + ecc * Math.sin(E)
+    const theta = 2 * Math.atan2(Math.sqrt(1 + ecc) * Math.sin(E / 2), Math.sqrt(1 - ecc) * Math.cos(E / 2))
+
+    const r = (a * (1 - ecc * ecc)) / (1 + ecc * Math.cos(theta))
+    const x = cx + r * Math.cos(theta)
+    const y = cy + (b / a) * r * Math.sin(theta)
+
+    // draw central star at focus (left focus)
+    ctx.fillStyle = '#ffd479'
+    ctx.beginPath()
+    ctx.arc(cx - focalDist, cy, 8, 0, Math.PI * 2)
+    ctx.fill()
+
+    // planet
+    ctx.fillStyle = '#7dd3fc'
+    ctx.beginPath()
+    ctx.arc(x, y, 8, 0, Math.PI * 2)
+    ctx.fill()
+
+    // velocity vector (approx tangent)
+    if (showVec) {
+      const eps = 0.01
+      const theta2 = theta + eps
+      const r2 = (a * (1 - ecc * ecc)) / (1 + ecc * Math.cos(theta2))
+      const x2 = cx + r2 * Math.cos(theta2)
+      const y2 = cy + (b / a) * r2 * Math.sin(theta2)
+      ctx.strokeStyle = '#34d399'
+      ctx.lineWidth = 2
+      ctx.beginPath()
+      ctx.moveTo(x, y)
+      ctx.lineTo(x2, y2)
+      ctx.stroke()
+    }
+
+    // label and notice
+    ctx.fillStyle = '#e6eef6'
+    ctx.font = '12px system-ui'
+    ctx.fillText('Notice: planet moves faster when closer to star — Kepler\'s 2nd Law', 10, 18)
+  }
+
+  const ref = useRAF(draw)
+  return (
+    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4">
+      <h3 className="text-white font-semibold">Orbital Motion</h3>
+      <p className="text-slate-300 text-sm">Elliptical orbit demonstrating Kepler's 2nd Law.</p>
+      <div className="mt-3 h-52 w-full">
+        <canvas ref={ref} className="w-full h-full rounded-xl" />
+      </div>
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        <div>
+          <label className="text-slate-300 text-sm">Eccentricity: {ecc.toFixed(2)}</label>
+          <input type="range" min="0" max="0.9" step="0.01" value={ecc} onChange={(e) => setEcc(Number(e.target.value))} />
+        </div>
+        <div className="flex items-center gap-2">
+          <label className="text-slate-300 text-sm">Velocity Vector</label>
+          <input type="checkbox" checked={showVec} onChange={(e) => setShowVec(e.target.checked)} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function PendulumSim() {
+  const [length, setLength] = useState(1)
+  const g = 9.81
+
+  const draw = (ctx: CanvasRenderingContext2D, w: number, h: number, t: number) => {
+    ctx.fillStyle = '#071025'
+    ctx.fillRect(0, 0, w, h)
+
+    const cx = w / 2
+    const top = 30
+    const Lpx = Math.min(w, h) * 0.18 * length
+
+    const omega = Math.sqrt(g / (Lpx / 60))
+    const angle = Math.sin(t * 1.5) * 0.6 // simple motion
+
+    const x = cx + Math.sin(angle) * Lpx
+    const y = top + Math.cos(angle) * Lpx
+
+    // rod
+    ctx.strokeStyle = '#60a5fa'
+    ctx.lineWidth = 3
+    ctx.beginPath()
+    ctx.moveTo(cx, top)
+    ctx.lineTo(x, y)
+    ctx.stroke()
+
+    // bob
+    ctx.fillStyle = '#fb7185'
+    ctx.beginPath()
+    ctx.arc(x, y, 12, 0, Math.PI * 2)
+    ctx.fill()
+
+    ctx.fillStyle = '#e6eef6'
+    ctx.font = '12px system-ui'
+    const period = 2 * Math.PI * Math.sqrt((Lpx / 60) / g)
+    ctx.fillText(`T = 2π√(L/g) = ${period.toFixed(2)} s`, 10, 18)
+    ctx.fillText(`Angle: ${(angle * (180 / Math.PI)).toFixed(1)}°`, 10, 34)
+  }
+
+  const ref = useRAF(draw)
+  return (
+    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4">
+      <h3 className="text-white font-semibold">Pendulum</h3>
+      <p className="text-slate-300 text-sm">Length affects period; formula updates live.</p>
+      <div className="mt-3 h-52 w-full">
+        <canvas ref={ref} className="w-full h-full rounded-xl" />
+      </div>
+      <div className="mt-3">
+        <label className="text-slate-300 text-sm">Length: {length.toFixed(2)} m</label>
+        <input type="range" min="0.5" max="3" step="0.01" value={length} onChange={(e) => setLength(Number(e.target.value))} />
+      </div>
+    </div>
+  )
+}
+
+function ProjectileSim() {
+  const [angle, setAngle] = useState(45)
+  const [speed, setSpeed] = useState(40)
+  const g = 9.81
+
+  const draw = (ctx: CanvasRenderingContext2D, w: number, h: number, t: number) => {
+    ctx.fillStyle = '#071025'
+    ctx.fillRect(0, 0, w, h)
+
+    const rad = (angle * Math.PI) / 180
+    const vx = speed * Math.cos(rad)
+    const vy = speed * Math.sin(rad)
+    const totalT = (2 * vy) / g
+
+    // scale to canvas
+    const scale = (w - 80) / (vx * totalT || 1)
+
+    ctx.strokeStyle = '#60a5fa'
+    ctx.lineWidth = 2
+    ctx.beginPath()
+    for (let tt = 0; tt <= totalT; tt += 0.02) {
+      const x = vx * tt
+      const y = vy * tt - 0.5 * g * tt * tt
+      const cx = 40 + x * scale
+      const cy = h - 40 - y * scale
+      if (tt === 0) ctx.moveTo(cx, cy)
+      else ctx.lineTo(cx, cy)
+    }
+    ctx.stroke()
+
+    const hmax = (vy * vy) / (2 * g)
+    const range = (2 * vx * vy) / g
+    ctx.fillStyle = '#e6eef6'
+    ctx.font = '12px system-ui'
+    ctx.fillText(`Max height: ${hmax.toFixed(2)} m`, 10, 18)
+    ctx.fillText(`Range: ${range.toFixed(2)} m`, 10, 34)
+  }
+
+  const ref = useRAF(draw)
+  return (
+    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4">
+      <h3 className="text-white font-semibold">Projectile Path</h3>
+      <p className="text-slate-300 text-sm">Launch a projectile and view its full parabolic arc.</p>
+      <div className="mt-3 h-52 w-full">
+        <canvas ref={ref} className="w-full h-full rounded-xl" />
+      </div>
+      <div className="mt-3 grid gap-2">
+        <label className="text-slate-300 text-sm">Angle: {angle}°</label>
+        <input type="range" min="0" max="90" value={angle} onChange={(e) => setAngle(Number(e.target.value))} />
+        <label className="text-slate-300 text-sm">Velocity: {speed} m/s</label>
+        <input type="range" min="1" max="120" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} />
+      </div>
+    </div>
+  )
+}
+
+function WaveSim() {
+  const [freq, setFreq] = useState(3)
+  const draw = (ctx: CanvasRenderingContext2D, w: number, h: number, t: number) => {
+    ctx.fillStyle = '#071025'
+    ctx.fillRect(0, 0, w, h)
+    const cx = w / 2
+    const cy = h / 2
+
+    // two sources
+    const srcA = { x: cx - 80, y: cy }
+    const srcB = { x: cx + 80, y: cy }
+
+    const img = ctx.createImageData(w, h)
+    const data = img.data
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const dxA = x - srcA.x
+        const dyA = y - srcA.y
+        const dA = Math.hypot(dxA, dyA)
+        const dxB = x - srcB.x
+        const dyB = y - srcB.y
+        const dB = Math.hypot(dxB, dyB)
+        const phase = (dA - dB) * 0.02 * freq + t * 2
+        const val = Math.cos(phase)
+        const idx = (y * w + x) * 4
+        const bright = Math.floor(120 + 120 * val)
+        data[idx] = bright
+        data[idx + 1] = bright
+        data[idx + 2] = bright
+        data[idx + 3] = 255
+      }
+    }
+    ctx.putImageData(img, 0, 0)
+
+    ctx.fillStyle = 'rgba(0,0,0,0.6)'
+    ctx.fillRect(0, 0, 80, 36)
+    ctx.fillStyle = '#e6eef6'
+    ctx.font = '12px system-ui'
+    ctx.fillText('Bright = constructive', 6, 16)
+    ctx.fillText('Dark = destructive', 6, 30)
+  }
+
+  const ref = useRAF(draw)
+  return (
+    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4">
+      <h3 className="text-white font-semibold">Wave Interference</h3>
+      <p className="text-slate-300 text-sm">Two wave sources produce constructive and destructive interference.</p>
+      <div className="mt-3 h-52 w-full">
+        <canvas ref={ref} className="w-full h-full rounded-xl" />
+      </div>
+      <div className="mt-3">
+        <label className="text-slate-300 text-sm">Frequency: {freq}</label>
+        <input type="range" min="1" max="8" value={freq} onChange={(e) => setFreq(Number(e.target.value))} />
+      </div>
+    </div>
+  )
+}
+
+export default function SimulationsGrid() {
+  const sims = [
+    { id: 'solar', title: 'Solar System', comp: SolarSystemSim },
+    { id: 'orbit', title: 'Orbital Motion', comp: OrbitSim },
+    { id: 'pendulum', title: 'Pendulum', comp: PendulumSim },
+    { id: 'projectile', title: 'Projectile Path', comp: ProjectileSim },
+    { id: 'wave', title: 'Wave Interference', comp: WaveSim },
+  ]
+  const [active, setActive] = useState('solar')
+
+  return (
+    <div className="rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-lg">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-[0.3em] text-sky-500">Simulations</p>
-          <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">Interactive physics labs</h2>
-          <p className="mt-2 max-w-2xl text-slate-600 dark:text-slate-300">Toggle between live experiments and learn how formulas map to motion.</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Simulations</p>
+          <h2 className="mt-2 text-3xl font-bold text-white">Interactive physics labs</h2>
+          <p className="mt-2 max-w-2xl text-slate-300">Five live experiments demonstrating mechanics and wave phenomena.</p>
         </div>
-        <div className="rounded-3xl bg-sky-50 px-4 py-3 text-sky-700 dark:bg-sky-900/20 dark:text-sky-200">Six experiments</div>
+        <div className="rounded-3xl bg-slate-800 px-4 py-3 text-slate-200">5 experiments</div>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-2">
-        <div className="space-y-4">
-          {experiments.map((experiment) => {
-            const Active = renderer[experiment.id as keyof typeof renderer];
-            return (
-              <button
-                key={experiment.id}
-                type="button"
-                onClick={() => setActiveId(experiment.id)}
-                className={`w-full rounded-3xl border px-5 py-4 text-left transition ${
-                  activeId === experiment.id ? 'border-sky-400 bg-sky-50 text-slate-900 dark:border-sky-500 dark:bg-slate-900/80 dark:text-white' : 'border-slate-200 bg-white text-slate-800 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300'
-                }`}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold">{experiment.title}</h3>
-                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{experiment.description}</p>
-                  </div>
-                  <span className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">{activeId === experiment.id ? 'Active' : 'View'}</span>
+      <div className="grid gap-6 lg:grid-cols-4">
+        <div className="space-y-3">
+          {sims.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => setActive(s.id)}
+              className={`w-full text-left rounded-2xl px-4 py-3 transition ${active === s.id ? 'bg-slate-800 border border-cyan-500 text-white' : 'bg-slate-900 border border-gray-700 text-slate-300 hover:bg-slate-800'}`}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-semibold">{s.title}</h4>
                 </div>
-              </button>
-            );
-          })}
+                <div className="text-sm text-slate-400">{active === s.id ? 'Active' : 'View'}</div>
+              </div>
+            </button>
+          ))}
         </div>
 
-        <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-900 p-4 dark:border-slate-700">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Live preview</p>
-              <h3 className="text-xl font-semibold text-white">{experiments.find((exp) => exp.id === activeId)?.title}</h3>
-            </div>
-            <div className="rounded-2xl bg-slate-800 px-3 py-1 text-xs uppercase tracking-[0.3em] text-slate-300">
-              animated
-            </div>
-          </div>
-          <div className="overflow-hidden rounded-[1.75rem] border border-slate-800 bg-slate-950 p-2">
+        <div className="lg:col-span-3">
+          <div className="rounded-2xl border border-gray-700 bg-slate-950 p-4">
             {(() => {
-              const Active = renderer[activeId as keyof typeof renderer];
-              return <Active />;
+              const Sim = sims.find((x) => x.id === active)!.comp
+              return <Sim />
             })()}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

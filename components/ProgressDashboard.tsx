@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { lessons } from '../data/lessons';
+import { Lesson, lessons } from '@/data/lessons';
 
 interface LessonProgress {
   score: number;
@@ -80,7 +80,7 @@ export default function ProgressDashboard() {
       </div>
 
       <div className="space-y-6">
-        {lessons.map((lesson) => {
+        {lessons.map((lesson: Lesson) => {
           const entry = progress[lesson.slug] ?? { score: 0, completed: false };
           return (
             <div key={lesson.slug} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
