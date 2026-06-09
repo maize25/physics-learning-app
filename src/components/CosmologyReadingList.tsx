@@ -4,9 +4,8 @@ import Link from 'next/link'
 const resources = [
   {
     title: 'The Story of Collapsing Stars',
-    author: 'Gravitational Physics Research',
     description: 'The foundational text for understanding gravitational collapse and the mathematical possibility of naked singularities beyond the standard event horizon model.',
-    url: 'https://www.google.com/search?q=The+Story+of+Collapsing+Stars+Pankaj+S.+Joshi',
+    url: 'https://www.google.com/search?q=The+Story+of+Collapsing+Stars',
   },
   {
     title: 'Event Horizon Telescope (EHT) Milky Way Observations',
@@ -40,7 +39,7 @@ export default function CosmologyReadingList() {
       <div className="grid gap-6 lg:grid-cols-2">
         {resources.map((resource) => (
           <div key={resource.title} className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">{resource.author}</p>
+            {resource.author && <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">{resource.author}</p>}
             <h3 className="mt-3 text-2xl font-semibold text-white">{resource.title}</h3>
             <p className="mt-4 text-slate-300">{resource.description}</p>
             <a

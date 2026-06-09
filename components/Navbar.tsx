@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, SunMoon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
 import TextSizeToggle from '@/src/components/ui/TextSizeToggle';
 
@@ -17,23 +17,35 @@ const navItems = [
 
 const moreItems = [
   { label: 'Research AI Agent', href: '/tutor' },
-  { label: 'Cosmology Resources', href: '/cosmology-resources' },
-  { label: 'About', href: '/about' },
-  { label: 'Flashcards', href: '/flashcards' },
-  { label: 'Daily Challenge', href: '/daily-challenge' },
-  { label: 'Bookmarks', href: '/bookmarks' },
   { label: 'Quizzes', href: '/quizzes' },
+  { label: 'Flashcards', href: '/flashcards' },
   { label: 'Videos', href: '/videos' },
-  { label: 'Progress', href: '/progress' },
-  { label: 'Search', href: '/search' },
-  { label: 'Quotes', href: '/quotes' },
   { label: 'Timeline', href: '/timeline' },
   { label: 'Glossary', href: '/glossary' },
+  { label: 'Quotes', href: '/quotes' },
+  { label: 'Progress', href: '/progress' },
+  { label: 'Daily Challenge', href: '/daily-challenge' },
+  { label: 'Bookmarks', href: '/bookmarks' },
+  { label: 'Cosmology Resources', href: '/cosmology-resources' },
+  { label: 'About', href: '/about' },
 ];
 
 export default function Navbar({ onOpenSearch }: { onOpenSearch?: () => void }) {
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (moreOpen && moreRef.current && !moreRef.current.contains(event.target as Node)) {
+        setMoreOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [moreOpen]);
 
   return (
     <nav className="sticky top-0 z-40 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 dark:from-blue-900 dark:via-blue-950 dark:to-indigo-900 text-white shadow-xl transition-colors duration-300 backdrop-blur-sm">
@@ -52,27 +64,22 @@ export default function Navbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
               </Link>
             ))}
 
-            <div className="relative">
+            <div className="relative" ref={moreRef}>
               <button
                 type="button"
                 onClick={() => setMoreOpen((v) => !v)}
-                onMouseEnter={() => setMoreOpen(true)}
-                onMouseLeave={() => setMoreOpen(false)}
                 className="flex items-center gap-2 text-white hover:text-cyan-200 transition font-medium text-sm"
               >
                 More ▾
               </button>
 
               {moreOpen && (
-                <div
-                  onMouseEnter={() => setMoreOpen(true)}
-                  onMouseLeave={() => setMoreOpen(false)}
-                  className="absolute right-0 top-full z-50 mt-2 w-64 rounded-xl border border-gray-700 bg-gray-900 shadow-2xl p-2"
-                >
+                <div className="absolute right-0 top-full z-50 mt-2 min-w-[12rem] rounded-xl border border-gray-700 bg-gray-900 shadow-2xl p-2">
                   {moreItems.map((m) => (
                     <Link
                       key={`${m.href}-${m.label}`}
                       href={m.href}
+                      onClick={() => setMoreOpen(false)}
                       className="block rounded-md px-3 py-2 text-sm text-slate-200 hover:bg-slate-800"
                     >
                       {m.label}
@@ -117,6 +124,16 @@ export default function Navbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
             Home
           </Link>
           {navItems.map((item) => (
+            <Link
+              key={`${item.href}-${item.label}`}
+              href={item.href}
+              className="rounded-2xl px-4 py-3 text-white transition hover:bg-blue-600/50"
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          {moreItems.map((item) => (
             <Link
               key={`${item.href}-${item.label}`}
               href={item.href}
