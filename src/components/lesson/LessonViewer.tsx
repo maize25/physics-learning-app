@@ -32,9 +32,24 @@ export default function LessonViewer({ lesson }: { lesson: any }) {
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <span className="rounded-full bg-slate-800 px-3 py-1 text-sm text-cyan-200">{lesson.difficulty}</span>
           <span className="rounded-full bg-slate-800 px-3 py-1 text-sm text-cyan-200">{lesson.estimatedMinutes} min</span>
+          {lesson.category ? (
+            <span className="rounded-full bg-slate-800 px-3 py-1 text-sm text-cyan-200">{lesson.category}</span>
+          ) : null}
           <span className="rounded-full bg-slate-800 px-3 py-1 text-sm text-cyan-200">Subject: Physics</span>
         </div>
         <p className="mt-4 text-slate-300">{lesson.intro}</p>
+        {(lesson.lifespan || lesson.fieldsOfStudy?.length) ? (
+          <div className="mt-4 flex flex-wrap gap-3">
+            {lesson.lifespan ? (
+              <span className="rounded-full bg-slate-800 px-3 py-1 text-sm text-cyan-200">{lesson.lifespan}</span>
+            ) : null}
+            {lesson.fieldsOfStudy?.map((field: string) => (
+              <span key={field} className="rounded-full bg-slate-800 px-3 py-1 text-sm text-cyan-200">
+                {field}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </header>
 
       <div className="mb-6 flex flex-wrap items-center gap-3">
@@ -70,6 +85,12 @@ export default function LessonViewer({ lesson }: { lesson: any }) {
                 ))}
               </div>
 
+              {lesson.quote ? (
+                <div className="mt-8 rounded-[2rem] border border-cyan-700/40 bg-slate-950/80 p-6 text-slate-100">
+                  <p className="text-xl italic text-cyan-300">“{lesson.quote}”</p>
+                </div>
+              ) : null}
+
               {chapter.imageUrl && (
                 <div className="mt-8 overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950 shadow-inner">
                   <img src={chapter.imageUrl} alt={chapter.imageCaption || chapter.title} className="w-full object-cover" />
@@ -91,6 +112,17 @@ export default function LessonViewer({ lesson }: { lesson: any }) {
                   <p className="mt-3 text-slate-300">Review this page, then move to the next chapter when you are ready. Use the sidebar to jump between specific topics in this lesson.</p>
                 </div>
               </div>
+
+              {lesson.discoveries?.length ? (
+                <div className="mt-8 rounded-3xl border border-violet-800 bg-slate-950 p-6">
+                  <h4 className="text-xl font-semibold text-white">Discoveries & legacy</h4>
+                  <ul className="mt-4 list-disc list-inside space-y-2 text-slate-300">
+                    {lesson.discoveries.map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </article>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -200,6 +232,19 @@ export default function LessonViewer({ lesson }: { lesson: any }) {
             <h4 className="font-semibold text-white">Estimated time</h4>
             <p className="text-slate-300">{lesson.estimatedMinutes} minutes</p>
           </div>
+
+          {lesson.fieldsOfStudy?.length ? (
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+              <h4 className="font-semibold text-white">Fields of study</h4>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {lesson.fieldsOfStudy.map((field: string) => (
+                  <span key={field} className="rounded-full bg-slate-800 px-2 py-1 text-xs text-cyan-200">
+                    {field}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
             <h4 className="font-semibold text-white">Quick links</h4>
