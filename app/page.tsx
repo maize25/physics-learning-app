@@ -157,7 +157,7 @@ export default function Home() {
               topics: ["Newton's Laws", 'Kinematics', 'Energy & Work', 'Momentum', 'Circular Motion', 'Gravitation'],
               lessons: 6,
               exercises: 24,
-              href: '/lessons',
+              href: '/lessons?tab=theory&topic=mechanics',
             },
             {
               title: 'Waves & Optics',
@@ -167,7 +167,7 @@ export default function Home() {
               topics: ['Wave Properties', 'Sound & Doppler', 'Light & Reflection', 'Refraction', 'Wave Interference', 'Polarization'],
               lessons: 6,
               exercises: 18,
-              href: '/lessons',
+              href: '/lessons?tab=theory&topic=waves-optics',
             },
             {
               title: 'Electricity & Magnetism',
@@ -177,7 +177,7 @@ export default function Home() {
               topics: ['Electric Charge', 'Electric Fields', 'Circuits & Ohm\'s Law', 'Capacitors', 'Magnetic Fields', 'Electromagnetic Induction'],
               lessons: 6,
               exercises: 20,
-              href: '/lessons',
+              href: '/lessons?tab=theory&topic=electricity-magnetism',
             },
             {
               title: 'Modern Physics',
@@ -187,7 +187,7 @@ export default function Home() {
               topics: ['Special Relativity', 'Quantum Mechanics', 'Photoelectric Effect', 'Nuclear Physics', 'Particle Physics', 'Cosmology'],
               lessons: 6,
               exercises: 16,
-              href: '/lessons',
+              href: '/lessons?tab=theory&topic=modern-physics',
             },
             {
               title: 'Mathematics',

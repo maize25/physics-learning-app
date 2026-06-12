@@ -6,6 +6,7 @@ import BookmarkButton from './BookmarkButton'
 import PrintButton from './PrintButton'
 import FocusModeButton from './FocusModeButton'
 import ConfusedButton from './ConfusedButton'
+import PracticeProblem from '../../../components/PracticeProblem'
 
 export default function LessonViewer({ lesson }: { lesson: any }) {
   const [activePage, setActivePage] = useState(0)
@@ -154,6 +155,26 @@ export default function LessonViewer({ lesson }: { lesson: any }) {
                     <h4 className="font-semibold text-cyan-300">{section.heading}</h4>
                     <p className="mt-3 text-slate-300">{section.content}</p>
                   </div>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {lesson.practiceProblems?.length ? (
+            <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+              <h3 className="text-2xl font-semibold text-white">Practice exercises</h3>
+              <p className="mt-2 text-slate-300">Apply this lesson with topic-focused problems and instant feedback.</p>
+              <div className="mt-5">
+                {lesson.practiceProblems.map((problem: any, index: number) => (
+                  <PracticeProblem
+                    key={index}
+                    problem={problem.problem}
+                    hint={problem.hint}
+                    answer={problem.answer}
+                    alternativeExample={problem.alternativeExample}
+                    tolerance={problem.tolerance}
+                    difficulty={problem.difficulty}
+                  />
                 ))}
               </div>
             </section>

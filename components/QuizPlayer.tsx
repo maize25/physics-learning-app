@@ -158,6 +158,156 @@ const quizTopics = {
       },
     ]
   },
+  classicalMechanics: {
+    name: "Classical Mechanics",
+    questions: [
+      {
+        question: "Which quantity is conserved when no external torque acts on a system?",
+        options: ["Linear momentum", "Angular momentum", "Energy", "Electrical charge"],
+        answer: 1,
+        hint: "This conservation law controls spinning systems.",
+        explanation: "Angular momentum is conserved in the absence of external torque, which is why skaters spin faster when they pull in their arms.",
+        conceptLink: "Rotational Motion and Conservation Laws",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "What is the acceleration of a 10 kg mass under a 20 N force?",
+        options: ["0.5 m/s²", "2 m/s²", "10 m/s²", "20 m/s²"],
+        answer: 1,
+        hint: "Use F = ma.",
+        explanation: "Acceleration = Force / Mass = 20 N / 10 kg = 2 m/s².",
+        conceptLink: "Newton's Second Law",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "True or false: momentum is a vector quantity.",
+        options: ["True", "False"],
+        answer: 0,
+        hint: "Momentum depends on both speed and direction.",
+        explanation: "Momentum is a vector because it has both magnitude and direction.",
+        conceptLink: "Momentum and Vectors",
+        questionType: "True/False",
+      },
+      {
+        question: "What is the gravitational force between two 1 kg masses separated by 1 m?",
+        options: ["6.67×10⁻¹¹ N", "6.67×10⁻⁵ N", "9.8 N", "1 N"],
+        answer: 0,
+        hint: "Use Newton's law of gravitation: F = G m1 m2 / r².",
+        explanation: "Using G ≈ 6.67×10⁻¹¹ N·m²/kg² gives a force of 6.67×10⁻¹¹ newtons.",
+        conceptLink: "Newtonian Gravity",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "If a car doubles its speed, its kinetic energy changes by what factor?",
+        options: ["1/2", "2", "4", "8"],
+        answer: 2,
+        hint: "Kinetic energy scales with the square of speed.",
+        explanation: "Kinetic energy is proportional to v², so doubling speed multiplies energy by 4.",
+        conceptLink: "Kinetic Energy and Work",
+        questionType: "Multiple Choice",
+      },
+    ]
+  },
+  wavesOptics: {
+    name: "Waves & Optics",
+    questions: [
+      {
+        question: "What is the relationship between wave speed, frequency, and wavelength?",
+        options: ["v = f + λ", "v = f / λ", "v = f λ", "v = λ / f"],
+        answer: 2,
+        hint: "Multiply frequency by wavelength.",
+        explanation: "Wave speed is the product of frequency and wavelength: v = f λ.",
+        conceptLink: "Wave Equation",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "True or false: the angle of incidence equals the angle of reflection.",
+        options: ["True", "False"],
+        answer: 0,
+        hint: "This is a basic law of reflection.",
+        explanation: "For reflection from a flat mirror, the incident angle equals the reflected angle.",
+        conceptLink: "Law of Reflection",
+        questionType: "True/False",
+      },
+      {
+        question: "A light ray enters glass from air. Does it bend towards or away from the normal?",
+        options: ["Towards the normal", "Away from the normal", "It does not bend", "It splits into two rays"],
+        answer: 0,
+        hint: "Glass is denser than air.",
+        explanation: "When light slows down entering a denser medium like glass, it bends toward the normal.",
+        conceptLink: "Snell's Law and Refraction",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "What phenomenon produces the colorful bands seen in soap bubbles?",
+        options: ["Reflection", "Refraction", "Interference", "Diffraction"],
+        answer: 2,
+        hint: "Thin film thickness matters.",
+        explanation: "Thin-film interference causes the rainbow colors in soap bubbles by constructive and destructive wave overlap.",
+        conceptLink: "Thin Film Interference",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "Waves passing through a narrow opening spread out; this is called what?",
+        options: ["Refraction", "Diffraction", "Dispersion", "Polarization"],
+        answer: 1,
+        hint: "It happens when the opening is about the size of the wavelength.",
+        explanation: "Diffraction occurs when waves bend around obstacles or openings and spread into the shadow region.",
+        conceptLink: "Diffraction Patterns",
+        questionType: "Multiple Choice",
+      },
+    ]
+  },
+  electricityMagnetism: {
+    name: "Electricity & Magnetism",
+    questions: [
+      {
+        question: "What is the direction of the force on a positive charge moving through a magnetic field?",
+        options: ["Along the velocity", "Opposite the velocity", "Perpendicular to both velocity and magnetic field", "Zero"],
+        answer: 2,
+        hint: "Use the right-hand rule for charges.",
+        explanation: "Magnetic force on a moving charge is perpendicular to both velocity and magnetic field: F = q v × B.",
+        conceptLink: "Magnetic Forces on Charges",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "True or false: a stationary charge feels a magnetic force in a uniform magnetic field.",
+        options: ["True", "False"],
+        answer: 1,
+        hint: "The magnetic force depends on motion.",
+        explanation: "A stationary charge does not experience a magnetic force because F = q v × B and v = 0.",
+        conceptLink: "Magnetic Force Law",
+        questionType: "True/False",
+      },
+      {
+        question: "Which equation is one of Maxwell's equations relating a changing magnetic field to induced electric field?",
+        options: ["∇·E = ρ/ε0", "∇×E = -∂B/∂t", "∇·B = 0", "∇×B = μ0 J"],
+        answer: 1,
+        hint: "Faraday's law is the changing magnetic flux law.",
+        explanation: "Faraday's law in differential form is ∇×E = -∂B/∂t, showing a changing magnetic field induces an electric field.",
+        conceptLink: "Faraday's Law",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "What happens to the current in a circuit when the resistance doubles and voltage stays constant?",
+        options: ["It doubles", "It halves", "It remains the same", "It becomes zero"],
+        answer: 1,
+        hint: "Use Ohm's law V = IR.",
+        explanation: "If resistance doubles with constant voltage, current halves.",
+        conceptLink: "Ohm's Law",
+        questionType: "Multiple Choice",
+      },
+      {
+        question: "What do transformers change in an AC circuit?",
+        options: ["Voltage and current", "Resistance", "Charge", "Frequency"],
+        answer: 0,
+        hint: "They use magnetic coupling between coils.",
+        explanation: "Transformers change the voltage and current of alternating current while conserving power (neglecting losses).",
+        conceptLink: "Transformer Operation",
+        questionType: "Multiple Choice",
+      },
+    ]
+  },
   famousScientists: {
     name: "Famous Scientists",
     questions: [
@@ -214,6 +364,7 @@ interface QuestionData {
   hint: string;
   explanation: string;
   conceptLink: string;
+  questionType?: string;
 }
 
 export default function QuizPlayer() {
@@ -395,6 +546,7 @@ export default function QuizPlayer() {
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-4 text-white text-sm">
             <span>Question {current + 1} of {questionsToUse.length}</span>
             <span>Score: {score}/{questionsToUse.length}</span>
+            <span>Type: {currentQuestion.questionType ?? 'Multiple Choice'}</span>
             {timeDisplay && <span>Time left: {timeDisplay}</span>}
           </div>
 

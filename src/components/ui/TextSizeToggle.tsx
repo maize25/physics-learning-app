@@ -1,22 +1,29 @@
 'use client'
 import { useTextSize } from '@/src/hooks/useTextSize'
 
+const sizeOptions = [
+  { key: 'small', label: 'A', className: 'text-xs' },
+  { key: 'medium', label: 'A', className: 'text-base' },
+  { key: 'large', label: 'A', className: 'text-xl' },
+] as const
+
 export default function TextSizeToggle() {
   const { size, setTextSize } = useTextSize()
 
   return (
-    <div className="flex items-center gap-1 bg-gray-800 rounded-xl p-1">
-      {(['small', 'medium', 'large'] as const).map((s) => (
+    <div className="flex items-center gap-2 rounded-xl bg-gray-800 p-1">
+      {sizeOptions.map((option) => (
         <button
-          key={s}
-          onClick={() => setTextSize(s)}
-          className={`px-3 py-1 rounded-lg text-sm font-medium transition-all
-            ${size === s
-              ? 'bg-indigo-600 text-white'
-              : 'text-gray-400 hover:text-white'
-            }`}
+          key={option.key}
+          onClick={() => setTextSize(option.key)}
+          className={`flex h-9 w-9 items-center justify-center rounded-lg border text-sm font-medium transition ${
+            size === option.key
+              ? 'border-indigo-500 bg-indigo-600 text-white'
+              : 'border-transparent text-gray-400 hover:border-slate-500 hover:text-white'
+          }`}
+          aria-label={`Set text size ${option.key}`}
         >
-          {s === 'small' ? 'A' : s === 'medium' ? 'A' : 'A'}
+          <span className={option.className}>{option.label}</span>
         </button>
       ))}
     </div>
